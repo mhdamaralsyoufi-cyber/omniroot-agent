@@ -30,13 +30,13 @@ FLASK_PID=$!
 
 echo "  ✓ Flask backend started on http://0.0.0.0:5001 (PID: $FLASK_PID)"
 
-# Start Frontend static server
-echo "→ Starting Frontend static server..."
+# Start Frontend preview server using the Vite dependency already installed by npm
+echo "→ Starting Frontend preview server..."
 cd /app/Frontend
-npx serve -s dist -l 5173 &
+npx vite preview --host 0.0.0.0 --port 5173 &
 SERVE_PID=$!
 
-echo "  ✓ Frontend static server started on http://0.0.0.0:5173 (PID: $SERVE_PID)"
+echo "  ✓ Frontend preview server started on http://0.0.0.0:5173 (PID: $SERVE_PID)"
 
 # Start code-server
 echo "→ Starting code-server..."
@@ -81,7 +81,7 @@ check_services() {
 }
 
 # Initial health check
-sleep 5  # Increased wait time for code-server startup
+sleep 5
 if check_services; then
     echo "✓ All services are running properly"
 else
