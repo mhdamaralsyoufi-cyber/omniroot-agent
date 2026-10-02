@@ -15,5 +15,6 @@
       "label": "OmniRoot Code Server",
       "onAutoForward": "silent"
     }
-  }
+  },
+  "postAttachCommand": "bash -lc 'nohup bash .devcontainer/start-omniroot.sh >/tmp/omniroot-start.log 2>&1 </dev/null &'"
 }

@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   omniroot:
-    image: jahanzeb833/omniroot-agent:latest
+    image: omniroot-agent-local:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,7 +10,7 @@ services:
     ports:
       - "5001:5001"
       - "5173:5173"
-      - "8080:8080"  # Added port mapping for code-server
+      - "8080:8080"
     volumes:
       - omniroot-data:/app/workspace
       - omniroot-db:/data
