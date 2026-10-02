@@ -1,0 +1,24 @@
+{
+  "name": "OmniRoot Agent",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "forwardPorts": [5173, 5001, 8080],
+  "portsAttributes": {
+    "5173": {
+      "label": "OmniRoot Frontend",
+      "onAutoForward": "openBrowser"
+    },
+    "5001": {
+      "label": "OmniRoot API",
+      "onAutoForward": "silent"
+    },
+    "8080": {
+      "label": "OmniRoot Code Server",
+      "onAutoForward": "silent"
+    }
+  },
+  "postCreateCommand": "docker compose up -d --build",
+  "postStartCommand": "docker compose up -d"
+}
