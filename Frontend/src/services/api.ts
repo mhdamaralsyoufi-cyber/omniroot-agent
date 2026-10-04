@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { Session } from '../types';
 
-const API_BASE_URL = 'http://localhost:5001';
+// Use same-origin requests so the app works in Codespaces, Docker, and local
+// environments. Vite proxies these API routes to the Flask backend.
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? '';
 
 export const createSession = async (): Promise<Session> => {
   try {
@@ -10,7 +12,7 @@ export const createSession = async (): Promise<Session> => {
         'Content-Type': 'application/json',
       },
     });
-    
+
     return {
       id: response.data.session_id,
       createdAt: new Date(),
@@ -29,7 +31,7 @@ export const submitQuery = async (sessionId: string, query: string): Promise<Res
     },
     body: JSON.stringify({
       session_id: sessionId,
-      query: query,
+      query,
     }),
   });
 };
