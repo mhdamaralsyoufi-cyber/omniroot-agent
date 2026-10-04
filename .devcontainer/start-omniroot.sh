@@ -28,8 +28,8 @@ echo "Waiting for frontend and backend..."
 for i in $(seq 1 60); do
   FRONTEND_OK=0
   BACKEND_OK=0
-  curl -sS --max-time 2 -o /dev/null http://127.0.0.1:5173/ && FRONTEND_OK=1
-  curl -sS --max-time 2 -o /dev/null http://127.0.0.1:5001/ && BACKEND_OK=1
+  curl -fsS --max-time 2 -o /dev/null http://127.0.0.1:5173/ && FRONTEND_OK=1
+  curl -fsS --max-time 2 -o /dev/null http://127.0.0.1:5001/health && BACKEND_OK=1
 
   if [ "$FRONTEND_OK" -eq 1 ] && [ "$BACKEND_OK" -eq 1 ]; then
     echo "OmniRoot is running."
