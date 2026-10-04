@@ -11,7 +11,6 @@ from flask_cors import CORS
 from utils.db_utils import init_db
 from utils.system_utils import get_os_and_kernel
 from pathlib import Path
-from utils.codeserver import start_code_server
 from tools.terminal_events import terminal_events
 from utils.service_utils import appview_queues, check_running_services
 from utils.file_upload_handler import handle_file_upload
@@ -70,6 +69,12 @@ def update_system_settings():
     conn.close()
     logger.info(f"Updated settings with OS: {os_name}, Kernel: {kernel_version}")
 
+
+
+@app.route('/health', methods=['GET'])
+def health():
+    """Lightweight health endpoint for Docker/Codespaces readiness checks."""
+    return jsonify({'status': 'ok'}), 200
 
 
 # Endpoint: Process a query with streaming
@@ -353,6 +358,5 @@ def upload_files():
 
 if __name__ == '__main__':
     update_system_settings()
-    start_code_server()
     threading.Thread(target=check_running_services, daemon=True).start()
     app.run(debug=False, host='0.0.0.0', port=5001)
